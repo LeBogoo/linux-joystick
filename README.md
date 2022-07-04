@@ -1,4 +1,4 @@
-# linux-gamepad
+# linux-joystick
 
 A simple package to get joystick/gamepad information via linux device files, without any dependencies and prebuilt binaries.
 
