@@ -20,6 +20,27 @@ class JoystickDevice extends EventEmitter {
         this.path = path;
         this.rs = fs.createReadStream(path);
         this.start();
+
+        this.state = {
+            axis: [],
+            buttons: [],
+        }
+    }
+
+    /**
+     * @param {string} number Button Number
+     * @returns {boolean} the value of the specified button (true of false).
+     */
+    getButton(number) {
+        return this.state.buttons[number] == 1;
+    }
+
+    /**
+     * @param {number} number Axis Number
+     * @returns {number} the value of the specified axis (-32767 to +32767).
+     */
+    getAxis(number) {
+        return this.state.axis[number];
     }
 
     parse(buffer) {
@@ -34,8 +55,19 @@ class JoystickDevice extends EventEmitter {
 
         switch (event.type) {
             case 'button_changed':
+                this.state.buttons[event.number] = event.value;
                 if (event.value) this.emit('button_pressed', event);
                 else this.emit('button_released', event);
+                break;
+            case 'axis_changed':
+                this.state.axis[event.number] = event.value;
+                break;
+
+            case 'button_init':
+                this.state.buttons[event.number] = 0;
+                break;
+            case 'axis_init':
+                this.state.axis[event.number] = 0;
                 break;
 
             default:
