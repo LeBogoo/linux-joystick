@@ -1,6 +1,6 @@
 {
   "name": "linux-joystick",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This package reads the Linux device file of a joystick/gamepad and maps it to easy-to-use events. Everything is vanilla Js, without pre-built binaries.",
   "main": "src/index.js",
   "scripts": {
